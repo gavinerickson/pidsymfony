@@ -59,7 +59,7 @@ class PidController extends Controller
 	}
 
 	/**
-	 * @Route("/pid/new", name="new_user_pid")
+	 * @Route("/newpid", name="new_user_pid")
 	 */
 	public function newAction(Request $request)
 	{
