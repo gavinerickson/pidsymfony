@@ -1,0 +1,131 @@
+
+{% import _self as formMacros %}
+
+{% macro printTaskEmbedded(task) %}
+
+    <div class="card js-task-form-item">
+        <a href="#" class="js-remove-task text-right"><span class="fa fa-close"></span> </a>
+        <div class="card-body form-group">
+            {{ form_errors(task) }}
+            <div class="card-header">
+                {{ form_row(task.title) }}
+            </div>
+            <br>
+            {{ form_row(task.description) }}
+            {{ form_row(task.RAG) }}
+            {{ form_row(task.startdate) }}
+            {{ form_row(task.enddate) }}
+
+
+        </div>
+    </div>
+    <br>
+
+{% endmacro %}
+
+
+{{ form_start(PIDForm) }}
+<div class="row">
+
+    <div class="col-md-3 card">
+        <div class="card-block">
+            <h3 class="card-title">Details</h3>
+            <div class="card-header">
+                <h4>
+                    {% if pid.id == 0 %}
+                        New PID
+
+                    {% else %}
+                        {{ pid.id|strpad(4,'0') }}
+                    {% endif %}
+                </h4>
+                {{ form_row(PIDForm.title) }}
+            </div>
+            <br>
+            <div class="card-text">
+
+                {{ form_row(PIDForm.description) }}
+                {{ form_row(PIDForm.title) }}
+                {% if pid.id != 0 %}
+                    Owner: {{ PIDForm.owner.vars.data.name }}
+                    <input type="hidden" id="{{ PIDForm.owner.vars.id }}"
+                           name="app_bundle_pidform[owner]"
+                           value="{{ PIDForm.owner.vars.data.id}}" />
+                    {% do PIDForm.owner.setRendered %}
+                {%  endif %}
+                {{ form_row(PIDForm.alsoInvolved) }}
+                {{ form_row(PIDForm.RAG) }}
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-3 offset-md-1 card">
+        <div class="card-block">
+            <h3 class="card-title">Financial</h3>
+            <div class="card-body">
+                {{ form_row(PIDForm.approval) }}
+                {{ form_row(PIDForm.budgetrequested) }}
+                {{ form_row(PIDForm.budgetallocated) }}
+                {{ form_row(PIDForm.budgetspent) }}
+                {{ form_row(PIDForm.remainingamount) }}
+                {{ form_row(PIDForm.assets) }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 offset-md-1 card">
+        <div class="card-block js-task-form-wrapper"
+             data-prototype="{{ formMacros.printTaskEmbedded(PIDForm.tasks.vars.prototype)|e('html_attr') }}"
+             data-index="{{ PIDForm.tasks|length }}">
+
+
+            <h3 class="card-title">Tasks</h3>
+
+            {% if task is defined %}
+
+                {{ formMacros.printTaskEmbedded(task) }}
+
+            {% endif %}
+
+
+
+            {% for task in PIDForm.tasks %}
+
+               {{ formMacros.printTaskEmbedded(task) }}
+
+            {% endfor %}
+            <a href="#" class="js-task-item-add">
+                <span class="fa fa-plus-circle"></span>
+                Add Another Task
+            </a>
+
+        </div>
+
+
+
+    </div>
+
+</div>
+{% if pid.id == 0 %}
+    <input type="hidden" id="{{ PIDForm.owner.vars.id }}"
+           name="app_bundle_pidform[owner]"
+           value="{{ user.id }}" />
+    {% do PIDForm.owner.setRendered %}
+
+{% endif %}
+<div class="row">
+    <div class="col-auto">
+
+    <button type="submit" class="btn btn-success" formnovalidate>Save</button>
+    &nbsp;
+    <a class="btn btn-danger" href="{{ path('list_user_pids') }}">Cancel</a>
+
+    </div>
+</div>
+{{ form_end(PIDForm) }}

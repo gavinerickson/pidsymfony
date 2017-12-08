@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-3">
+            <a class="btn btn-primary" href="{{ path('list_user_pids') }}">List</a>
+            <a class="btn btn-primary" href="{{ path('gantt_user_pids') }}">Gant</a>
+        </div>
+
+
+    </div>
+
+    {{ dump(pids) }}
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
+

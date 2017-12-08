@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+{{ include('pid/_form.html.twig') }}
+{% endblock %}
+
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+
+    <script src="{{ '/js/pidform.js' }}"></script>
+
+{% endblock %}

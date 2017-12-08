@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-3">
+            <a class="btn btn-primary" href="{{ path('list_user_pids') }}">List</a>
+            <a class="btn btn-primary" href="{{ path('gantt_user_pids') }}">Gant</a>
+        </div>
+
+        <div class="col-sm-6 ">
+{#
+            <div class="col-sm-5 ">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Start date" aria-label="Search for...">
+                    <span class="input-group-btn">
+
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-sm-5 col-sm-offset-2 ">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Start date" aria-label="Search for...">
+                    <span class="input-group-btn">
+
+                    </span>
+                </div>
+            </div>
+            <a class="btn btn-primary" href="#">Apply</a>
+#}
+        </div>
+
+
+        <div class="col-sm-3">
+            <a class="btn btn-primary pull-right" href={{ path('new_user_pid') }}>New</a>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        &nbsp;
+    </div>
+
+    <div class="count">
+        {{ pids.getTotalItemCount }}
+    </div>
+
+    <table class="table table-striped">
+        <th>id</th><th>Description</th><th>Status</th><th>Owner</th><th>also involved</th><th>Tasks</th><th>start</th><th>end</th>
+
+        {% for pid in pids%}
+        <tr>
+            <td><a href="{{ path('edit_user_pid',{'id':pid.id }) }}">{{ pid.id|strpad(4,'0') }}&nbsp;{{ pid.title }}</a></td>
+            <td>{{ pid.description }}</td>
+            <td>{{ pid.RAG }}</td>
+            <td>{{ pid.owner.name }}</td>
+
+            <td>{% for worker in pid.alsoinvolved %}
+                {{ worker.name }}<br>
+
+                {% endfor %}
+            </td>
+
+            <td>
+                <ul>
+                {% for task in pid.tasks %}
+                   <li>{{ task.title }}</li>
+                {% endfor %}
+                </ul>
+            </td>
+            <td>{{ pid.pidstart|date("d/m/Y") }}</td>
+            <td>{{ pid.pidend|date("d/m/Y") }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pids) }}
+    </div>
+{% endblock %}
