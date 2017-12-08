@@ -36,7 +36,7 @@
                         New PID
 
                     {% else %}
-                        {{ pid.id|strpad(4,'0') }}
+                        {{ pid.id|strpad(5,'0') }}
                     {% endif %}
                 </h4>
                 {{ form_row(PIDForm.title) }}

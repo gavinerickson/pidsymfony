@@ -51,7 +51,7 @@
 
         {% for pid in pids%}
         <tr>
-            <td><a href="{{ path('edit_user_pid',{'id':pid.id }) }}">{{ pid.id|strpad(4,'0') }}&nbsp;{{ pid.title }}</a></td>
+            <td><a href="{{ path('edit_user_pid',{'id':pid.id }) }}">{{ pid.id|strpad(5,'0') }}&nbsp;{{ pid.title }}</a></td>
             <td>{{ pid.description }}</td>
             <td>{{ pid.RAG }}</td>
             <td>{{ pid.owner.name }}</td>
