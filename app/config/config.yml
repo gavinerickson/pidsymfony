@@ -207,7 +207,7 @@ easy_admin:
                             class: 'AppBundle\Entity\User'
                             multiple: false
                             label: 'Line Manager'
-                    - { property: 'plainpassword', type: 'text', required: 'required' }
+                    - { property: 'plainpassword', type: 'text'}
 
             new:
                 fields:
@@ -217,4 +217,4 @@ easy_admin:
                     - 'email'
                     - 'roles'
                     - 'linemanager'
-                    - { property: 'plainpassword', type: 'text', required: 'required' }
+                    - { property: 'plainpassword', type: 'text' }
