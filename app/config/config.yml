@@ -196,9 +196,25 @@ easy_admin:
                     -
                         property: 'roles'
                         type: 'choice'
+                        label: 'Roles'
                         type_options:
                             multiple: true
-                            choices: {ROLE_USER: 'ROLE_USER',ROLE_ADMIN: 'ROLE_ADMIN', ROLE_SUPERADMIN: 'ROLE_SUPERADMIN'}
-                    - 'linemanager'
-                    - { property: 'plainpassword', type: 'text' }
+                            choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN', 'ROLE_SUPERADMIN': 'ROLE_SUPERADMIN' }
+                    -
+                        property: 'linemanager'
+                        type: 'entity'
+                        type_options:
+                            class: 'AppBundle\Entity\User'
+                            multiple: false
+                            label: 'Line Manager'
+                    - { property: 'plainpassword', type: 'text', required: 'required' }
 
+            new:
+                fields:
+                    - '-id'
+                    - 'username'
+                    - 'name'
+                    - 'email'
+                    - 'roles'
+                    - 'linemanager'
+                    - { property: 'plainpassword', type: 'text', required: 'required' }
