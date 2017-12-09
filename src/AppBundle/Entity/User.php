@@ -170,17 +170,26 @@ class User implements UserInterface
 	}
 
 	/**
-	 * @return mixed
+	 * @return array
 	 */
 	public function getRoles()
 	{
-		return $this->roles;
+		$roles = $this->roles;
+
+		if(empty($roles[0]))
+		{
+			$roles[] = 'ROLE_USER';
+			return array($roles);
+		}
+
+
+		return $roles;
 	}
 
 	/**
-	 * @param mixed $roles
+	 * @param array
 	 */
-	public function setRoles($roles)
+	public function setRoles(array $roles)
 	{
 		$this->roles = $roles;
 	}
