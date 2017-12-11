@@ -145,7 +145,7 @@ easy_admin:
                         property: 'approval'
                         type: 'choice'
                         type_options:
-                            choices: {'yes': 'yes','no': 'no'}
+                            choices: {'yes': 'yes','no': 'no','pending': 'pending'}
                     - 'budgetrequested'
                     - 'budgetspent'
                     - 'budgetallocated'
