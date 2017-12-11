@@ -120,6 +120,7 @@ easy_admin:
                 fields:
                     - 'id'
                     - 'title'
+                    - 'owner'
                     - 'description'
                     - 'RAG'
                     - { property: 'approved', type: 'text'}
