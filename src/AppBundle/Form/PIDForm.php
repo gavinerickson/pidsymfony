@@ -43,7 +43,8 @@ class PIDForm extends AbstractType
 			->add('approval',ChoiceType::class,[
 				'choices' => [
 					'yes' => 'yes',
-					'no' => 'no'
+					'no' => 'no',
+					'pending' => 'pending'
 				]
 			])
 			->add('budgetrequested',null,[
