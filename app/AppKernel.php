@@ -3,6 +3,7 @@
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
+
 class AppKernel extends Kernel
 {
     public function registerBundles()
@@ -18,7 +19,8 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
 	        new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
 	        new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-	        new EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle(),
+	        new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
+	        new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

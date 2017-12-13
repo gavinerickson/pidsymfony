@@ -320,7 +320,7 @@ class Pid
 			asort($startDates);
 			reset($startDates);
 			//dump($startDates);
-			return reset($startDates);;
+			return reset($startDates);
 		}
 
 

@@ -115,17 +115,22 @@ easy_admin:
                 actions:
                     - { name: 'edit', icon: 'pencil',label: '', title: 'edit'  }
                     - { name: 'delete', icon: 'trash',label: '', title: 'delete' }
+                    - { name: 'export', icon: 'download' }
 
 
                 fields:
                     - 'id'
                     - 'title'
-                    - 'owner'
+                    - { property: 'owner', type: 'text' }
                     - 'description'
                     - 'RAG'
-                    - { property: 'approved', type: 'text'}
+                    - 'approval'
                     - { property: 'pidstart', type: 'date', format: 'd M Y'  }
                     - { property: 'pidend', type: 'date', format: 'd M Y'  }
+
+            search:
+                help: null
+                fields: ['id', 'title', 'owner', 'description']
 
 
             form:

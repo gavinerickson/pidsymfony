@@ -55,6 +55,7 @@
                 {%  endif %}
                 {{ form_row(PIDForm.alsoInvolved) }}
                 {{ form_row(PIDForm.RAG) }}
+                {{ form_row(PIDForm.approval) }}
 
 
             </div>
@@ -66,7 +67,7 @@
         <div class="card-block">
             <h3 class="card-title">Financial</h3>
             <div class="card-body">
-                {{ form_row(PIDForm.approval) }}
+
                 {{ form_row(PIDForm.budgetrequested) }}
                 {{ form_row(PIDForm.budgetallocated) }}
                 {{ form_row(PIDForm.budgetspent) }}

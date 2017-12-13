@@ -37,3 +37,4 @@ services:
     AppBundle\Doctrine\HashPasswordListener:
         tags:
             - { name: doctrine.event_subscriber }
+
