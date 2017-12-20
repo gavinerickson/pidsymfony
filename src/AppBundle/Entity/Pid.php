@@ -39,6 +39,13 @@ class Pid
 	private $description;
 
 	/**
+	 * @Assert\NotBlank()
+	 * @ORM\Column(type="date")
+	 */
+	private $deadline;
+
+
+	/**
 	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
 	 */
 	private $owner;
@@ -63,20 +70,25 @@ class Pid
 	/**
 	 * @ORM\Column(type="string", nullable=true)
 	 */
+	private $pidnote;
+
+	/**
+	 * @ORM\Column(type="decimal", scale=2)
+	 */
 	private $budgetrequested;
 
 	/**
-	 * @ORM\Column(type="string", nullable=true)
+	 * @ORM\Column(type="decimal", scale=2)
 	 */
 	private $budgetspent;
 
 	/**
-	 * @ORM\Column(type="string", nullable=true)
+	 * @ORM\Column(type="decimal", scale=2)
 	 */
 	private $budgetallocated;
 
 	/**
-	 * @ORM\Column(type="string", nullable=true)
+	 * @ORM\Column(type="decimal", scale=2)
 	 */
 	private $remainingamount;
 
@@ -84,6 +96,11 @@ class Pid
 	 * @ORM\Column(type="string", nullable=true)
 	 */
 	private $assets;
+
+	/**
+	 * @ORM\Column(type="string", nullable=true)
+	 */
+	private $financialnote;
 
 
 	/**
@@ -153,6 +170,25 @@ class Pid
 	}
 
 	/**
+	 * @return mixed
+	 */
+	public function getDeadline()
+	{
+		return $this->deadline;
+	}
+
+	/**
+	 * @param mixed $deadline
+	 */
+	public function setDeadline($deadline)
+	{
+		$this->deadline = $deadline;
+	}
+
+
+
+
+	/**
 	 * @return user object
 	 */
 	public function getOwner()
@@ -214,6 +250,24 @@ class Pid
 	{
 		$this->approval = $approval;
 	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getPidnote()
+	{
+		return $this->pidnote;
+	}
+
+	/**
+	 * @param mixed $pidnote
+	 */
+	public function setPidnote($pidnote)
+	{
+		$this->pidnote = $pidnote;
+	}
+
+
 
 	/**
 	 * @return mixed
@@ -293,6 +347,22 @@ class Pid
 	public function setAssets($assets)
 	{
 		$this->assets = $assets;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getFinancialnote()
+	{
+		return $this->financialnote;
+	}
+
+	/**
+	 * @param mixed $financialnote
+	 */
+	public function setFinancialnote($financialnote)
+	{
+		$this->financialnote = $financialnote;
 	}
 
 
@@ -391,6 +461,17 @@ class Pid
 		// needed to update the owning side of the relationship!
 		$task->setParentpid(null);
 
+
+	}
+
+
+	public function getDuration()
+	{
+
+
+		$interval   =   $this->getPidstart()->diff($this->getPidend());
+
+		return $interval->format("%a");
 
 	}
 

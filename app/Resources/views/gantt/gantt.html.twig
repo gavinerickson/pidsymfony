@@ -1,0 +1,174 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div class="row">
+            <div class="col-sm-5">
+
+                <a href="{{ path('list_user_pids') }}" class="btn btn-success">Back to PID list</a>
+                <input value="Export to PDF" type="button" class="btn btn-primary" onclick='gantt.exportToPDF({ callback:show_result })'>
+
+
+            </div>
+            <div class="col-sm-5 offset-sm-2">
+
+                <div class="btn-group float-right" id="filterDay" data-toggle="buttons">
+                    <label class="btn btn-primary" for="scale1">
+                        <input type="radio" name="scale" id="scale1" value="1" autocomplete="off" />Day scale
+                    </label>
+                    <label class="btn btn-primary" for="scale2">
+                        <input type="radio" name="scale" id="scale2" value="2" autocomplete="off" />Week scale
+                    </label>
+                    <label class="btn btn-primary" for="scale3">
+                        <input type="radio" name="scale" id="scale3" value="3" autocomplete="off" />Month scale
+                    </label>
+                    <label class="btn btn-primary active" for="scale4">
+                        <input type="radio" name="scale" id="scale4" value="4" autocomplete="off" checked />Year scale
+                    </label>
+                </div>
+
+            </div>
+
+        </div>
+       <div id="container">
+            <div id="gantt_here" style="width:100%; height:500px;"></div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/dhtmlxgantt.css') }}" type="text/css" rel="stylesheet" />
+    <style type="text/css">
+        html, body{ padding:0px; margin:0px; height:100%; }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/dhtmlxgantt.js') }}"></script>
+    <script src="https://cdn.ravenjs.com/3.10.0/raven.min.js"></script>
+    <script>Raven.config('https://25a6d5e8c35148d195a1967d8374ffca@sentry.dhtmlx.ru/6').install()</script>
+    <script src="https://export.dhtmlx.com/gantt/api.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        function show_result(info){
+            if (!info)
+                gantt.message({
+                    text:"Server error",
+                    type:"error",
+                    expire:-1
+                });
+            else
+                gantt.message({
+                    text:"Stored at <a href='"+info.url+"'>export.dhtlmx.com</a>",
+                    expire:-1
+                });
+        }
+        gantt.templates.task_text = function(s,e,task){
+            return task.text;
+        }
+        gantt.config.columns[0].template = function(obj){
+            return obj.text + " -";
+        }
+
+
+        function setScaleConfig(value){
+            switch (value) {
+                case "1":
+                    gantt.config.scale_unit = "day";
+                    gantt.config.step = 1;
+                    gantt.config.date_scale = "%d %M";
+                    gantt.config.subscales = [];
+                    gantt.config.scale_height = 27;
+                    gantt.templates.date_scale = null;
+                    break;
+                case "2":
+                    var weekScaleTemplate = function(date){
+                        var dateToStr = gantt.date.date_to_str("%d %M");
+                        var endDate = gantt.date.add(gantt.date.add(date, 1, "week"), -1, "day");
+                        return dateToStr(date) + " - " + dateToStr(endDate);
+                    };
+
+                    gantt.config.scale_unit = "week";
+                    gantt.config.step = 1;
+                    gantt.templates.date_scale = weekScaleTemplate;
+                    gantt.config.subscales = [
+                        {unit:"day", step:1, date:"%D" }
+                    ];
+                    gantt.config.scale_height = 50;
+                    break;
+                case "3":
+                    gantt.config.scale_unit = "month";
+                    gantt.config.date_scale = "%F, %Y";
+                    gantt.config.subscales = [
+                        {unit:"day", step:1, date:"%j, %D" }
+                    ];
+                    gantt.config.scale_height = 50;
+                    gantt.templates.date_scale = null;
+                    break;
+                case "4":
+                    gantt.config.scale_unit = "year";
+                    gantt.config.step = 1;
+                    gantt.config.date_scale = "%Y";
+                    gantt.config.min_column_width = 50;
+
+                    gantt.config.scale_height = 90;
+                    gantt.templates.date_scale = null;
+
+
+                    gantt.config.subscales = [
+                        {unit:"month", step:1, date:"%M" }
+                    ];
+                    break;
+            }
+        }
+
+        setScaleConfig('4');
+
+        gantt.config.xml_date = "%Y-%m-%d %H:%i:%s";
+        gantt.config.readonly = true;
+        gantt.config.columns = [
+            {name:"text",       label:"Task name",  width:"*", tree:true },
+            {name:"start_date", label:"Start time", align: "center" },
+            {name:"duration",   label:"Duration",   align: "center" }
+        ];
+        gantt.config.date_grid = "%d-%m-%Y";
+        gantt.templates.rightside_text = function(start, end, task){
+            if(task.type == gantt.config.types.milestone){
+                return task.text;
+            }
+            return "";
+        };
+        gantt.load("/getgantt");
+
+        gantt.init("gantt_here");
+        var dp = new gantt.dataProcessor("/getgantt");
+        dp.init(gantt);
+
+
+        (function ($) {
+            $(document).ready(function() {
+
+                $('#filterDay input:radio').change(function () {
+                    var filterDay = $(this).val();
+
+                    setScaleConfig(filterDay);
+                    gantt.render();
+
+                });
+
+
+            });
+        })(jQuery);
+
+
+
+
+
+
+
+    </script>
+
+
+{% endblock %}

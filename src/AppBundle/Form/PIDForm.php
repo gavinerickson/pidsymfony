@@ -5,9 +5,11 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Task;
 use AppBundle\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,6 +21,11 @@ class PIDForm extends AbstractType
 		$builder
 			->add('title')
 			->add('description', TextareaType::class)
+			->add('deadline', DateType::class,[
+				'widget' => 'single_text',
+				'html5' => true,
+
+			])
 			->add('owner', EntityType::class,[
 				'class' => User::class,
 				'multiple' => false,
@@ -35,8 +42,9 @@ class PIDForm extends AbstractType
 			->add('RAG', ChoiceType::class,[
 				'choices' => [
 					'RED' => 'RED',
-					'AMBER' => 'AMBER',
-					'GREEN' => 'GREEN'
+					'AMBER' => 'DARKORANGE',
+					'GREEN' => 'GREEN',
+					'COMPLETE' => 'DARKGRAY'
 				],
 				'label'=> 'Status'
 			])
@@ -47,22 +55,43 @@ class PIDForm extends AbstractType
 					'pending' => 'pending'
 				]
 			])
-			->add('budgetrequested',null,[
-				'label' => 'Budget requested'
+			->add('pidnote',TextareaType::class,[
+				'label' => 'General notes'
 			])
-			->add('budgetallocated',null,[
-				'label' => 'Budget allocated'
+			->add('budgetrequested',NumberType::class,[
+				'label' => 'Total budget approved',
+				'empty_data' => 0,
+				'attr' => [
+					'placeholder' => 0
+				]
 			])
-			->add('budgetspent',null,[
-				'label' => 'Budget spent'
+			->add('budgetallocated',NumberType::class,[
+				'label' => 'Budget allocated',
+				'empty_data' => 0,
+				'attr' => [
+					'placeholder' => 0
+				]
+			])
+			->add('budgetspent',NumberType::class,[
+				'label' => 'Budget spent',
+				'empty_data' => 0,
+				'attr' => [
+					'placeholder' => 0
+				]
 			])
 
-			->add('remainingamount',null,[
-				'label' => 'Remaining amount'
+			->add('remainingamount',NumberType::class,[
+				'label' => 'Remaining amount',
+				'empty_data' => 0,
+
 			])
 			->add('assets',TextareaType::class,[
 				'label' => 'Assets'
 			])
+
+			->add('financialnote', TextareaType::class,[
+				'label' => 'Financial notes'
+				])
 
 			->add('tasks', CollectionType::class,[
 				'entry_type' => TaskEmbeddedForm::class,

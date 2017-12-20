@@ -28,5 +28,47 @@
             // Display the form in the page before the "new" link
             $(this).before(newForm);
         });
+
+
+        $('.budgetfield').change(function (e) {
+
+            e.preventDefault();
+            var $total= 0;
+
+            var $budgetrequested = parseFloat($('#app_bundle_pidform_budgetrequested').val());
+            if (!$.isNumeric($budgetrequested))
+            {
+                $budgetrequested =  parseFloat($('#app_bundle_pidform_budgetrequested').attr('placeholder'));
+            };
+
+
+            var $budgetallocated = parseFloat($('#app_bundle_pidform_budgetallocated').val());
+            if (!$.isNumeric($budgetallocated))
+            {
+                $budgetallocated =  parseFloat($('#app_bundle_pidform_budgetallocated').attr('placeholder'));
+            };
+
+            var $budgetspent = parseFloat($('#app_bundle_pidform_budgetspent').val());
+            if (!$.isNumeric($budgetspent))
+            {
+                $budgetspent =  parseFloat($('#app_bundle_pidform_budgetspent').attr('placeholder'));
+            };
+
+
+
+
+
+            $total = $budgetrequested - $budgetallocated - $budgetspent;
+            $('#app_bundle_pidform_remainingamount').val($total);
+
+
+
+
+        });
+
+
+
+
+
     });
 })(jQuery);

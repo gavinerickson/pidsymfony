@@ -145,15 +145,21 @@ easy_admin:
                         property: 'rag'
                         type: 'choice'
                         type_options:
-                            choices: {'RED': 'RED','AMBER': 'AMBER','GREEN': 'GREEN'}
+                            choices: {'RED': 'RED','AMBER': 'AMBER','GREEN': 'GREEN', 'COMPLETE': 'COMPLETE'}
                     -
                         property: 'approval'
+                        help: 'hello'
                         type: 'choice'
                         type_options:
                             choices: {'yes': 'yes','no': 'no','pending': 'pending'}
-                    - 'budgetrequested'
+
+                    -
+                        property: 'budgetrequested'
+
                     - 'budgetspent'
-                    - 'budgetallocated'
+                    - { property: 'budgetallocated'}
+
+
                     - 'remainingamount'
                     - 'assets'
                     - { property: 'owner', type: 'entity' }

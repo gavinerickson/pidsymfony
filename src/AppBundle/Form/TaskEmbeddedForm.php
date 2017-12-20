@@ -20,8 +20,9 @@ class TaskEmbeddedForm extends AbstractType
 			->add('RAG', ChoiceType::class,[
 				'choices' => [
 					'RED' => 'RED',
-					'AMBER' => 'AMBER',
-					'GREEN' => 'GREEN'
+					'AMBER' => 'DARKORANGE',
+					'GREEN' => 'GREEN',
+					'COMPLETE' => 'DARKGRAY'
 				],
 				'label'=> 'Status'
 			])

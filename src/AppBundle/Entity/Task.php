@@ -167,5 +167,13 @@ class Task
 	}
 
 
+	public function getDuration()
+	{
+
+		$interval   =   $this->getStartdate()->diff($this->getEnddate());
+		return $interval->format("%a");
+
+	}
+
 
 }

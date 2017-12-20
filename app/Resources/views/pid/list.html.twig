@@ -3,8 +3,8 @@
 {% block body %}
     <div class="row">
         <div class="col-sm-3">
-            <a class="btn btn-primary" href="{{ path('list_user_pids') }}">List</a>
-            <a class="btn btn-primary" href="{{ path('gantt_user_pids') }}">Gant</a>
+
+            <a class="btn btn-primary" href="{{ path('display_gantt_data') }}">Gantt chart</a>
         </div>
 
         <div class="col-sm-6 ">
@@ -43,7 +43,7 @@
     </div>
 
     <div class="count">
-        {{ pids.getTotalItemCount }}
+        {{ pids.getTotalItemCount }} items
     </div>
 
     <table class="table table-striped">
