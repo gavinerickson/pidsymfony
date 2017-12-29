@@ -104,8 +104,9 @@ class PidController extends Controller
 	}
 
 
+
 	/**
-	 * @Route("/pid/{id}", name="edit_user_pid")
+	 * @Route("/mypid/{id}", name="edit_user_pid")
 	 */
 	public function editAction(Request $request, Pid $pid)
 	{
