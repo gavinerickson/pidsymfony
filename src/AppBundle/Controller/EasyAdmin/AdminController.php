@@ -9,6 +9,7 @@
 namespace AppBundle\Controller\EasyAdmin;
 
 use AppBundle\Entity\Pid;
+use AppBundle\Service\AdminCsvExporter;
 use AppBundle\Service\CsvExporter;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 
@@ -16,33 +17,21 @@ class AdminController extends BaseAdminController
 {
 
 
-	private $csvExporter;
 
+	private $adminCsvExporter;
 
-	public function __construct(CsvExporter $csvExporter)
+	public function __construct(AdminCsvExporter $adminCsvExporter)
 	{
-		$this->csvExporter = $csvExporter;
+		$this->adminCsvExporter = $adminCsvExporter;
 	}
 
 
 	public function exportAction()
 	{
 
-		$sortDirection = $this->request->query->get('sortDirection');
-		if (empty($sortDirection) || !in_array(strtoupper($sortDirection), ['ASC', 'DESC'])) {
-			$sortDirection = 'DESC';
-		}
-		$queryBuilder = $this->createListQueryBuilder(
-			$this->entity['class'],
-			$sortDirection,
-			$this->request->query->get('sortField'),
-			$this->entity['list']['dql_filter']
-		);
-		return $this->csvExporter->getResponseFromQueryBuilder(
-			$queryBuilder,
-			Pid::class,
-			'pids.csv'
-		);
+
+
+		return $this->adminCsvExporter->exportCsv('pids.csv');
 	}
 
 
