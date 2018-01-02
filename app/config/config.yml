@@ -96,7 +96,7 @@ easy_admin:
             - 'Financial'
             - 'User'
             - { label: 'Your front end', route: 'list_user_pids' }
-            - { label: 'Master gantt chart', route: 'gantt_master_pids' }
+            - { label: 'Master gantt chart', route: 'display_mastergantt_data' }
 
 
     formats:

@@ -10,7 +10,6 @@ namespace AppBundle\Controller\EasyAdmin;
 
 use AppBundle\Entity\Pid;
 use AppBundle\Service\AdminCsvExporter;
-use AppBundle\Service\CsvExporter;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 
 class AdminController extends BaseAdminController

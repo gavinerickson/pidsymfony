@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-sm-5">
 
-                <a href="{{ path('list_user_pids') }}" class="btn btn-success">Back to PID list</a>
+                <a href="{{ path('admin') }}" class="btn btn-success">Back to PID list</a>
                 <input value="Export to PDF" type="button" class="btn btn-primary" onclick='gantt.exportToPDF({ callback:show_result })'>
 
 
@@ -140,10 +140,10 @@
             }
             return "";
         };
-        gantt.load("/getgantt");
+        gantt.load("/getmastergantt");
 
         gantt.init("gantt_here");
-        var dp = new gantt.dataProcessor("/getgantt");
+        var dp = new gantt.dataProcessor("/getmastergantt");
         dp.init(gantt);
 
 

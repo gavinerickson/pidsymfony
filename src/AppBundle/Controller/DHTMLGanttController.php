@@ -25,6 +25,15 @@ class DHTMLGanttController extends Controller
 		return $this->render('gantt/gantt.html.twig');
 	}
 
+	/**
+	 * renders page
+	 * @Route("/masterdhtmlgantt", name="display_mastergantt_data")
+	 */
+	public function dhtmlMasterGanttAction()
+	{
+		return $this->render('gantt/mastergantt.html.twig');
+	}
+
 
 	/**
 	 * @Route("/getgantt", name="get_gantt_data")
@@ -40,6 +49,38 @@ class DHTMLGanttController extends Controller
 		$pids = $this->getDoctrine()->getManager()
 			->getRepository('AppBundle\Entity\Pid')
 			->findMyPids($user->getId());
+
+		if (!$pids)
+		{
+			throw $this->createNotFoundException(
+				'No PIDs found'
+			);
+		}
+
+		$mypids=$this->getArrayData($pids);
+
+		$mypids =  json_encode($mypids, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+
+		$response = new Response($mypids);
+		$response->headers->set('Content-Type', 'application/json');
+
+		return $response;
+
+
+	}
+
+	/**
+	 * @Route("/getmastergantt", name="get_mastergantt_data")
+	 */
+	public function getMasterGanttDataAction()
+	{
+
+
+
+		$pids = $this->getDoctrine()->getManager()
+			->getRepository('AppBundle\Entity\Pid')
+			->findAll();
+
 
 		if (!$pids)
 		{
