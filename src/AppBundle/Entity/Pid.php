@@ -34,7 +34,7 @@ class Pid
 	private $title;
 
 	/**
-	 * @ORM\Column(type="string", nullable=true)
+	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $description;
 
@@ -68,7 +68,7 @@ class Pid
 	private $approval;
 
 	/**
-	 * @ORM\Column(type="string", nullable=true)
+	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $pidnote;
 
@@ -93,12 +93,12 @@ class Pid
 	private $remainingamount;
 
 	/**
-	 * @ORM\Column(type="string", nullable=true)
+	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $assets;
 
 	/**
-	 * @ORM\Column(type="string", nullable=true)
+	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $financialnote;
 

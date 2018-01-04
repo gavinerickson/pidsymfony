@@ -33,7 +33,7 @@ class Task
 
 	/**
 	 * @Assert\NotBlank()
-	 * @ORM\Column(type="string", nullable=true)
+	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $description;
 
