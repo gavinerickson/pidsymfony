@@ -119,7 +119,7 @@ class DHTMLGanttController extends Controller
 			//top level pid
 			$pidarray = array (
 				'id' => $pidId,
-				'text' => str_pad($pidId, 5, '0', STR_PAD_LEFT).' '.$pid->getTitle(),
+				'text' => str_pad($pid->getId(), 5, '0', STR_PAD_LEFT).' '.$pid->getTitle(),
 				'start_date' => $pid->getPidstart()->format('Y-m-d H:i:s'),
 				'duration' => $pid->getDuration(),
 				'order' =>10,
