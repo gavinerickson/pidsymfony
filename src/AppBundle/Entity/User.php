@@ -57,7 +57,7 @@ class User implements UserInterface
 
 	/**
 	 * A user has one line manager.
-	 * @ORM\OneToOne(targetEntity="User")
+	 * @ORM\ManyToOne(targetEntity="User", inversedBy="name")
 	 */
 	private $linemanager;
 
