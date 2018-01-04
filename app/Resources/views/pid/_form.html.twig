@@ -55,6 +55,11 @@
                 {%  endif %}
                 {{ form_row(PIDForm.alsoInvolved) }}
                 {{ form_row(PIDForm.RAG) }}
+
+                <ul class="small"><li>RED – stalled</li>
+                    <li>AMBER – risk of a milestone not being completed on time</li>
+                    <li>GREEN – on target</li>
+                </ul>
                 {{ form_row(PIDForm.approval) }}
                 {{ form_row(PIDForm.deadline) }}
                 {{ form_row(PIDForm.pidnote) }}
