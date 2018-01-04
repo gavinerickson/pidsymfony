@@ -56,8 +56,8 @@ class User implements UserInterface
 	private $roles = [];
 
 	/**
-	 * @Assert\NotBlank()
-	 * @ORM\Column(type="string")
+	 * A user has one line manager.
+	 * @ORM\OneToOne(targetEntity="User")
 	 */
 	private $linemanager;
 
@@ -207,6 +207,7 @@ class User implements UserInterface
 	 */
 	public function setLinemanager($linemanager)
 	{
+
 		$this->linemanager = $linemanager;
 	}
 

@@ -10,8 +10,8 @@ parameters:
     locale: en
 
 framework:
-    #esi: ~
-    #translator: { fallbacks: ['%locale%'] }
+    esi: ~
+    translator: { fallbacks: ['%locale%'] }
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
@@ -199,6 +199,15 @@ easy_admin:
         User:
             class: AppBundle\Entity\User
 
+
+            list:
+                fields:
+                    - 'id'
+                    - 'username'
+                    - 'name'
+                    - { property: 'linemanager', label: 'Line Manager ', type: 'text' }
+
+
             form:
                 fields:
                     - 'id'
@@ -219,7 +228,9 @@ easy_admin:
                             class: 'AppBundle\Entity\User'
                             multiple: false
                             label: 'Line Manager'
-                    - { property: 'plainpassword', type: 'text'}
+
+
+                    - { property: 'plainpassword', type: 'text', label: 'Password'}
 
             new:
                 fields:
@@ -230,3 +241,6 @@ easy_admin:
                     - 'roles'
                     - 'linemanager'
                     - { property: 'plainpassword', type: 'text' }
+
+            edit:
+                title: 'Edit User'
