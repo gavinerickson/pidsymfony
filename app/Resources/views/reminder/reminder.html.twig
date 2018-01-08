@@ -1,3 +1,9 @@
+<style>
+    th, td {
+        border-bottom:1px dotted;
+    }
+
+</style>
 <h3>Hello {{ user.name }},</h3>
 
 <p>Here's a quick reminder of current PIDs. If you receive reminders for PIDs that are finished, don't forget to set the PID status to complete.</p>
@@ -25,7 +31,7 @@
     </tr>
 
     {% for pid in pids %}
-        <tr style="border:1px dotted">
+        <tr >
             <td>
                 {{ pid.id|strpad(5,'0') }}&nbsp;{{ pid.title }}
             </td>
