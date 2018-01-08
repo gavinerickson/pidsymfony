@@ -30,6 +30,35 @@ class PidRepository extends EntityRepository
 	}
 
 
+	public function findPidsForReminder($userId)
+	{
+		$pids =  $this->createQueryBuilder('Pid')
+			->Where('Pid.owner = '.$userId)
+			->leftJoin('Pid.alsoInvolved','me')
+			->orWhere('me.id ='.$userId)
+
+			->getQuery()
+			->execute();
+
+		$filtered =[];
+
+		foreach ($pids as $pid)
+		{
+			$pid->pidstart = $pid->getPidstart()->format('Y-m-d H:i:s');
+
+			$now = new \DateTime();
+
+			if($pid->pidstart <= strtotime($now->format("Y-m-d")." 00:00:00"))
+			{
+				$filtered[] = $pid;
+			}
+		}
+
+		return $filtered;
+
+
+
+	}
 
 
 }

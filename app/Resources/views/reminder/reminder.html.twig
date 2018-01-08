@@ -1,0 +1,57 @@
+<h3>Hello {{ user.name }},</h3>
+
+<p>Here's a quick reminder of current PIDs. If you receive reminders for PIDs that are finished, don't forget to set the PID status to complete.</p>
+
+<table>
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Deadline
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            Owner
+        </th>
+        <th>
+            Also involved
+        </th>
+    </tr>
+
+    {% for pid in pids %}
+        <tr>
+            <td>
+                {{ pid.id|strpad(5,'0') }}&nbsp;{{ pid.title }}
+            </td>
+            <td>
+                {{ pid.description }}
+            </td>
+            <td>
+                {{ pid.deadline|date("d/m/Y") }}
+            </td>
+            <td>
+                {{ pid.RAG }}
+            </td>
+            <td>
+                {{ pid.owner }}
+            </td>
+            <td><ul> {% for worker in pid.alsoinvolved %}
+                        <li>{{ worker.name }}</li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </td>
+        </tr>
+
+    {% endfor %}
+
+</table>
+<p>You can login to the system <a href="https://pid.acupuncture.org.uk">here</a></p>

@@ -388,7 +388,7 @@ class Pid
 
 		if(!empty($startDates)){
 			asort($startDates);
-			reset($startDates);
+			//reset($startDates);
 			//dump($startDates);
 			return reset($startDates);
 		}
