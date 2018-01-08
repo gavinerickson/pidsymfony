@@ -33,7 +33,10 @@ class PidRepository extends EntityRepository
 	public function findPidsForReminder($userId)
 	{
 		$pids =  $this->createQueryBuilder('Pid')
-			->Where('Pid.owner = '.$userId)
+			->Where('Pid.RAG != :complete')
+			->setParameter('complete', 'DARKGRAY')
+			->andWhere('Pid.owner = :user')
+			->setParameter('user', $userId)
 			->leftJoin('Pid.alsoInvolved','me')
 			->orWhere('me.id ='.$userId)
 
@@ -50,7 +53,12 @@ class PidRepository extends EntityRepository
 
 			if($pid->pidstart <= strtotime($now->format("Y-m-d")." 00:00:00"))
 			{
-				$filtered[] = $pid;
+				//other users PIDs fall through where clause of main query
+				if ($pid->getRag() != 'DARKGRAY')
+				{
+					$filtered[] = $pid;
+				}
+
 			}
 		}
 
