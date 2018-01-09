@@ -53,7 +53,14 @@
         <tr>
             <td><a href="{{ path('edit_user_pid',{'id':pid.id }) }}">{{ pid.id|strpad(5,'0') }}&nbsp;{{ pid.title }}</a></td>
             <td>{{ pid.description }}</td>
-            <td>{{ pid.RAG }}</td>
+            <td>{% if pid.RAG == 'DARKGRAY' %}
+                    COMPLETE
+                {% elseif pid.RAG == 'DARKORANGE' %}
+                    AMBER
+                {% else %}
+                    {{ pid.RAG }}
+                {% endif %}
+            </td>
             <td>{{ pid.owner.name }}</td>
 
             <td>{% for worker in pid.alsoinvolved %}
