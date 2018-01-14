@@ -38,3 +38,8 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
+
+    AppBundle\Command\ReminderEmailCommand:
+        public: false
+        tags: [console.command]
+
