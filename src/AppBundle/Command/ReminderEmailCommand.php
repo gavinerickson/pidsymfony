@@ -37,7 +37,7 @@ class ReminderEmailCommand extends Command
 	{
 		$this
 			// the name of the command (the part after "bin/console")
-			->setName('app:send-reminder-email')
+			->setName('send:reminder-email')
 
 			// the short description shown while running "php bin/console list"
 			->setDescription('sends a reminder email')
