@@ -10,7 +10,6 @@ namespace AppBundle\Command;
 
 
 use Doctrine\ORM\EntityManagerInterface;
-use Pagerfanta\View\Template\TemplateInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Command\LockableTrait;
 use Symfony\Component\Console\Input\InputInterface;
@@ -41,7 +40,7 @@ class ReminderEmailCommand extends Command
 			->setName('app:send-reminder-email')
 
 			// the short description shown while running "php bin/console list"
-			->setDescription('rsends a reminder email')
+			->setDescription('sends a reminder email')
 
 			// the full command description shown when running the command with
 			// the "--help" option
